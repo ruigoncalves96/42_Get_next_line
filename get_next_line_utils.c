@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:04:34 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/02 23:39:32 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:44:02 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,17 @@ char	*ft_strchr(const char *s, int c)
 	if (s[i] != (unsigned char)c)
 	        return (NULL);
 	return ((char *)s);
+}
+
+char    *ft_strdup(const char *s1)
+{
+        char    *ptr;
+        int             size;
+
+        size = ft_strlen(s1);
+        ptr = malloc(size + 1);
+        if (ptr == NULL)
+                return (NULL);
+        ft_strlcpy(ptr, s1, size + 1);
+        return (ptr);
 }
