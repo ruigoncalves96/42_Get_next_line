@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 22:55:53 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/02 23:20:37 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:50:29 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,17 @@ static char	*get_line(char *str)
 {
 }
 
-static char	*read_full_buffer(int fd)
+static t_list	*read_buffer(t_list *head, int fd)
 {
-	char	*str;
+	t_list	*new_line;
 
-	str = malloc(BUFFER_SIZE + 1);
-	if (str == NULL)
+	new_line = malloc(sizeof(t_list));
+	if (new_line == NULL)
 		return (NULL);
-	read(fd, str, BUFFER_SIZE);
-	str[BUFFER_SIZE + 1] = '\0';
-	return (str);
+	new_line->str = malloc(BUFFER_SIZE);
+	read(fd, new_line->str, BUFFER_SIZE);
+	new_line->str[BUFFER_SIZE + 1] = '\0';
+	return (new_line);
 }
 
 char	*get_next_line(int fd)
@@ -40,14 +41,15 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int	fd;
-	char	*str;
+	t_list	*new_line;
 
 	fd = open("text.txt", O_RDONLY);
 
-	str = get_next_line(fd);
-	printf("%s\n", str);
+	new_line = read_buffer(fd);
+	printf("%s\n", new_line->str);
 
-	free(str);
+	free(new_line->str);
+	free(new_line);
 	close(fd);
 	return (0);
 }

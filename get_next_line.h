@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 22:59:44 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/02 22:42:43 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:32:43 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 10
 # endif
+
+typedef struct s_list
+{
+	char		*str;
+	struct s_list	*next;
+}			t_list;
 
 char	*get_next_line(int fd);
 int	ft_strlen(const char *s);
