@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:04:34 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/07 17:29:03 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/08 03:20:44 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ int	ft_check_nl(t_list *new_node)
 	return (0);
 }
 
-void    ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-        t_list  *last;
+	t_list	*last;
 
-        if (lst == NULL)
-                return ;
-        if (*lst)
-        {
-                last = ft_lstlast(*lst);
-                last->next = new;
-        }
-        else
-                *lst = new;
+	if (lst == NULL)
+		return ;
+	if (*lst)
+	{
+		last = ft_lstlast(*lst);
+		last->next = new;
+	}
+	else
+		*lst = new;
 }
 
 t_list	*ft_lstlast(t_list *lst)
@@ -52,26 +52,20 @@ t_list	*ft_lstlast(t_list *lst)
 	return (lst);
 }
 
-void	ft_del_str(void *str)
+void	ft_lstclear(t_list **lst)
 {
-	free(str);
+	t_list	*i;
+	t_list	*temp;
+
+	if (!lst)
+		return ;
+	i = *lst;
+	while (i->next != NULL)
+	{
+		temp = i;
+		i = i->next;
+		free(temp->str);
+		free(temp);
+	}
+	*lst = i;
 }
-
-void    ft_lstclear(t_list **lst, void (*del)(void *))
-{
-        t_list  *i;
-        t_list  *temp;
-
-        if (!lst)
-                return ;
-        i = *lst;
-        while (i)
-        {
-                temp = i;
-                i = i->next;
-                if (del)
-                        del(temp->str);
-                free(temp);
-        }
-        *lst = NULL;
-

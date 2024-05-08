@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 22:59:44 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/07 17:12:01 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/08 03:19:52 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-#ifndef BUFFER_SIZE
+# ifndef BUFFER_SIZE
 # define BUFFER_SIZE 10
 # endif
 
@@ -28,10 +28,9 @@ typedef struct s_list
 }			t_list;
 
 char	*get_next_line(int fd);
-int	ft_check_nl(t_list *new_node);
+int		ft_check_nl(t_list *new_node);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
-void	ft_del_str(void *str);
-void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst);
 
 #endif
