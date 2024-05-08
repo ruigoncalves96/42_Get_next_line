@@ -6,11 +6,21 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 23:04:34 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/08 03:20:44 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:39:14 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+// ft_lst_strlen() : counts the lenght of the string to be created from the linked lists. based on '\n'
+int	ft_lst_strlen(t_list **head)
+{
+	t_list	*current;
+	int	i;
+
+	current = *head;
+
+}
 
 int	ft_check_nl(t_list *new_node)
 {

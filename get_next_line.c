@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 22:55:53 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/08 03:54:00 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:39:37 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	format_new_head(t_list **head)
 	int		i;
 	int		j;
 
+	if (*head == NULL)
+		return ;
 	temp = *head;
 	i = 0;
 	while (temp->str[i] != '\n')
@@ -45,11 +47,12 @@ static char	*join_str(t_list **head, int len_read)
 {
 	t_list	*current;
 	char	*str;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	current = *head;
 	str = malloc(len_read + 1);
+	printf("%d\n", len_read);
 	if (str == NULL)
 		return (NULL);
 	i = 0;
@@ -57,11 +60,7 @@ static char	*join_str(t_list **head, int len_read)
 	{
 		j = 0;
 		while (current->str[j] != '\n' && current->str[j] != '\0')
-		{
-			str[i] = current->str[j];
-			i++;
-			j++;
-		}
+			str[i++] = current->str[j++];
 		if (current->str[j] == '\n')
 		{
 			str[i++] = '\n';
@@ -90,7 +89,7 @@ static int	create_list(t_list **head, int fd)
 		read_nbr += read(fd, new_node->str, BUFFER_SIZE);
 		if (read_nbr == 0)
 			return (0);
-		new_node->str[BUFFER_SIZE + 1] = '\0';
+		new_node->str[BUFFER_SIZE] = '\0';
 		new_node->next = NULL;
 		ft_lstadd_back(head, new_node);
 	}
@@ -100,14 +99,12 @@ static int	create_list(t_list **head, int fd)
 char	*get_next_line(int fd)
 {
 	static t_list	*head;
-	char		*str;
-	int		len_read;
+	char			*str;
+	int				len_read;
 
-	head = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
 		return (NULL);
-	if (head)
-		format_new_head(&head);
+	format_new_head(&head);
 	len_read = create_list(&head, fd);
 	if (len_read == 0)
 	{
@@ -126,12 +123,12 @@ int	main(void)
 	int	fd;
 	char	*line;
 
-	line = NULL;
 	fd = open("text.txt", O_RDONLY);
 	if (fd < 0)
 		return (1);
-	int i = 0;
-	while (i++ != 5)
+	line = get_next_line(fd);
+	printf("%s", line);
+	while (line)
 	{
 		line = get_next_line(fd);
 		printf("%s", line);

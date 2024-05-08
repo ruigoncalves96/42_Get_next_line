@@ -1,0 +1,151 @@
+=1170518== Memcheck, a memory error detector
+==1170518== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1170518== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1170518== Command: ./a.out
+==1170518== 
+Welcome to where time stands still
+No one leaves and no one will
+Moon is full, never seems to change
+==1170518== Invalid write of size 1
+==1170518==    at 0x40153E: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==  Address 0x4a9ef8f is 0 bytes after a block of size 31 alloc'd
+==1170518==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x401467: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518== 
+==1170518== Invalid write of size 1
+==1170518==    at 0x40154A: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==  Address 0x4a9ef90 is 1 bytes after a block of size 31 alloc'd
+==1170518==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x401467: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518== 
+==1170518== Invalid read of size 1
+==1170518==    at 0x484ED24: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x48E8D30: __vfprintf_internal (vfprintf-internal.c:1517)
+==1170518==    by 0x48D279E: printf (printf.c:33)
+==1170518==    by 0x401607: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==  Address 0x4a9ef8f is 0 bytes after a block of size 31 alloc'd
+==1170518==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x401467: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518== 
+==1170518== Invalid read of size 1
+==1170518==    at 0x48FD734: _IO_new_file_xsputn (fileops.c:1218)
+==1170518==    by 0x48FD734: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==1170518==    by 0x48E900B: outstring_func (vfprintf-internal.c:239)
+==1170518==    by 0x48E900B: __vfprintf_internal (vfprintf-internal.c:1517)
+==1170518==    by 0x48D279E: printf (printf.c:33)
+==1170518==    by 0x401607: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==  Address 0x4a9ef8f is 0 bytes after a block of size 31 alloc'd
+==1170518==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x401467: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518== 
+==1170518== Invalid read of size 1
+==1170518==    at 0x48534F0: mempcpy (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x48FD664: _IO_new_file_xsputn (fileops.c:1235)
+==1170518==    by 0x48FD664: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==1170518==    by 0x48E900B: outstring_func (vfprintf-internal.c:239)
+==1170518==    by 0x48E900B: __vfprintf_internal (vfprintf-internal.c:1517)
+==1170518==    by 0x48D279E: printf (printf.c:33)
+==1170518==    by 0x401607: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==  Address 0x4a9ef8f is 0 bytes after a block of size 31 alloc'd
+==1170518==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x401467: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518== 
+Just labelled mentally deranged
+==1170518== Invalid write of size 1
+==1170518==    at 0x40150C: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==  Address 0x4a9f21f is 0 bytes after a block of size 31 alloc'd
+==1170518==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x401467: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518== 
+==1170518== Invalid read of size 1
+==1170518==    at 0x48534FE: mempcpy (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x48FD664: _IO_new_file_xsputn (fileops.c:1235)
+==1170518==    by 0x48FD664: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==1170518==    by 0x48E900B: outstring_func (vfprintf-internal.c:239)
+==1170518==    by 0x48E900B: __vfprintf_internal (vfprintf-internal.c:1517)
+==1170518==    by 0x48D279E: printf (printf.c:33)
+==1170518==    by 0x401607: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==  Address 0x4a9f220 is 1 bytes after a block of size 31 alloc'd
+==1170518==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1170518==    by 0x401467: join_str (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x401216: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518== 
+Dream the same thing every night
+I see our freedom in my sight
+No locked doors, no windows barred
+No things to make my brain seem scarred
+Sleep my friend, and you will see
+The dream is my reality
+They keep me locked up in this cage
+Can't they see it's why my brain says rage?
+Sanitarium
+Leave me be
+Sanitarium
+Just leave me alone
+Build my fear of what's out there
+Cannot breathe the open air
+Whisper things into my brain
+Assuring me that I'm insane
+They think our heads are in their hands
+But violent use brings violent plans
+Keep him tied, it makes him well
+He's getting better, can't you tell?
+No more can they keep us in
+Listen, damn it, we will win
+They see it right, they see it well
+But they think this saves us from our hell
+Sanitarium
+Leave me be
+Sanitarium
+Just leave me alone
+Sanitarium
+(Just leave me alone)
+Fear of living on
+Natives getting restless now
+Mutiny in the air
+Got some death to do
+Mirror stares back hard
+Kill, it's such a friendly word
+Seems the only way
+For reaching out again
+==1170518== Conditional jump or move depends on uninitialised value(s)
+==1170518==    at 0x4012DA: format_new_head (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4011C9: get_next_line (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518==    by 0x4015EE: main (in /home/randrade/42_Folders/42_Github/Get_next_line/a.out)
+==1170518== 
+(null)==1170518== 
+==1170518== HEAP SUMMARY:
+==1170518==     in use at exit: 90 bytes in 5 blocks
+==1170518==   total heap usage: 315 allocs, 310 frees, 5,584 bytes allocated
+==1170518== 
+==1170518== LEAK SUMMARY:
+==1170518==    definitely lost: 57 bytes in 2 blocks
+==1170518==    indirectly lost: 11 bytes in 1 blocks
+==1170518==      possibly lost: 0 bytes in 0 blocks
+==1170518==    still reachable: 22 bytes in 2 blocks
+==1170518==         suppressed: 0 bytes in 0 blocks
+==1170518== Rerun with --leak-check=full to see details of leaked memory
+==1170518== 
+==1170518== Use --track-origins=yes to see where uninitialised values come from
+==1170518== For lists of detected and suppressed errors, rerun with: -s
+==1170518== ERROR SUMMARY: 184 errors from 8 contexts (suppressed: 0 from 0)
+
