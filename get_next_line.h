@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 22:59:44 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/08 15:42:03 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:24:37 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+#include <stdio.h> // DELETE INCLUDE !!!!!!!!!!!
 
 # ifndef BUFFER_SIZE
 #define BUFFER_SIZE 10
@@ -28,9 +29,10 @@ typedef struct s_list
 }			t_list;
 
 char	*get_next_line(int fd);
-int		ft_check_nl(t_list *new_node);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstclear(t_list **lst);
+int	ft_check_nl(char *str);
+int	ft_strlen(char *str);
+size_t	ft_strlcpy(char *dst, char *src, size_t size);
+size_t  ft_strlcat(char *dst, char *src, size_t size);
+char    *ft_strjoin(char *s1, char *s2);
 
 #endif

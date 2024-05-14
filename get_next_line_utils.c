@@ -5,77 +5,77 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 23:04:34 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/08 18:39:14 by randrade         ###   ########.fr       */
+/*   Created: 2024/05/10 18:30:52 by randrade          #+#    #+#             */
+/*   Updated: 2024/05/13 21:24:56 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-// ft_lst_strlen() : counts the lenght of the string to be created from the linked lists. based on '\n'
-int	ft_lst_strlen(t_list **head)
+int	ft_check_nl(char *str)
 {
-	t_list	*current;
-	int	i;
-
-	current = *head;
-
-}
-
-int	ft_check_nl(t_list *new_node)
-{
-	int	i;
-
-	if (new_node == NULL)
+	if (str == NULL)
 		return (0);
-	i = 0;
-	while (new_node->str[i])
+	while (*str)
 	{
-		if (new_node->str[i] == '\n')
+		if (*str == '\n')
 			return (1);
-		i++;
+		str++;
 	}
 	return (0);
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+int	ft_strlen(char *str)
 {
-	t_list	*last;
+	int	i;
 
-	if (lst == NULL)
-		return ;
-	if (*lst)
-	{
-		last = ft_lstlast(*lst);
-		last->next = new;
-	}
-	else
-		*lst = new;
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
-t_list	*ft_lstlast(t_list *lst)
+size_t	ft_strlcpy(char *dst, char *src, size_t size)
 {
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	size_t	src_len;
+	
+	src_len = ft_strlen(src);
+	if (dst == NULL || src == NULL || !size)
+		return (src_len);
+	while (*src && --size)
+		*dst++ = *src++;
+	*dst = '\0';
+	return (src_len);
 }
 
-void	ft_lstclear(t_list **lst)
+size_t  ft_strlcat(char *dst, char *src, size_t size)
 {
-	t_list	*i;
-	t_list	*temp;
+        size_t  dst_len;
+        size_t  src_len;
 
-	if (!lst)
-		return ;
-	i = *lst;
-	while (i->next != NULL)
-	{
-		temp = i;
-		i = i->next;
-		free(temp->str);
-		free(temp);
-	}
-	*lst = i;
+        dst_len = ft_strlen(dst);
+        src_len = ft_strlen(src);
+        if (dst_len >= size)
+                return (src_len + size);
+        else
+                size -= dst_len;
+        ft_strlcpy(dst + dst_len, src, size);
+        return (dst_len + src_len);
 }
+
+char    *ft_strjoin(char *s1, char *s2)
+{
+        char    *ptr;
+        int             s1_len;
+        int             s2_len;
+
+        s1_len = ft_strlen(s1);
+        s2_len = ft_strlen(s2);
+        ptr = malloc(s1_len + s2_len + 1);
+        if (ptr == NULL)
+                return (NULL);
+        ft_strlcpy(ptr, s1, s1_len + 1);
+        ft_strlcat(ptr, s2, s1_len + s2_len + 1);
+        return (ptr);
+}
+

@@ -1,133 +1,154 @@
-/* ************************************************************************* */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 22:55:53 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/08 18:39:37 by randrade         ###   ########.fr       */
+/*   Created: 2024/05/10 18:28:48 by randrade          #+#    #+#             */
+/*   Updated: 2024/05/13 21:27:16 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-static void	format_new_head(t_list **head)
+static char	*clean_buf(char *buf)
 {
-	t_list	*temp;
-	char	*str;
-	int		new_len;
-	int		i;
-	int		j;
+	char	*free_buf;
+	char	*buf_cleaned;
+	int	i;
+	int	k;
 
-	if (*head == NULL)
-		return ;
-	temp = *head;
-	i = 0;
-	while (temp->str[i] != '\n')
-		i++;
-	new_len = BUFFER_SIZE - i;
-	str = malloc(new_len + 1);
-	if (str == NULL)
-		return ;
-	j = 0;
-	while (temp->str[i])
-	{
-		i++;
-		str[j] = temp->str[i];
-		j++;
-	}
-	str[j] = '\0';
-	free(temp->str);
-	temp->str = str;
-}
-
-static char	*join_str(t_list **head, int len_read)
-{
-	t_list	*current;
-	char	*str;
-	int		i;
-	int		j;
-
-	current = *head;
-	str = malloc(len_read + 1);
-	printf("%d\n", len_read);
-	if (str == NULL)
+	if (!*buf)
 		return (NULL);
+	free_buf = buf;
 	i = 0;
-	while (current != NULL)
+	while (buf[i])
 	{
-		j = 0;
-		while (current->str[j] != '\n' && current->str[j] != '\0')
-			str[i++] = current->str[j++];
-		if (current->str[j] == '\n')
-		{
-			str[i++] = '\n';
-			str[i] = '\0';
-		}
-		current = current->next;
+		if (buf[i] == '\n')
+			break;
+		i++;
 	}
-	return (str);
+	buf += i + 1;
+	if (!(buf_cleaned = malloc(ft_strlen(buf) + 1)))
+		return (NULL);
+	k = 0;
+	while (buf[k])
+	{
+		buf_cleaned[k] = buf[k];
+		k++;
+	}
+	buf_cleaned[k] = '\0';
+	free(free_buf);
+	return (buf_cleaned);
 }
 
-static int	create_list(t_list **head, int fd)
+static char	*get_new_line(char *buf)
 {
-	t_list	*new_node;
-	int		read_nbr;
+	char	*new_line;
+	int	len;
+	int	i;
+	int	k;
 
-	read_nbr = 0;
-	new_node = NULL;
-	while (!ft_check_nl(new_node))
+	len = 0;
+	while (buf[len] != '\n' && buf[len])
+		len ++;
+	if (buf[len] == '\n')
+		len++;
+	if (!(new_line = malloc(len + 1)))
+			return (NULL);
+	i = 0;
+	k = 0;
+	while (buf[i])
 	{
-		new_node = malloc(sizeof(t_list));
-		if (new_node == NULL)
-			return (0);
-		new_node->str = malloc(BUFFER_SIZE + 1);
-		if (new_node->str == NULL)
-			return (0);
-		read_nbr += read(fd, new_node->str, BUFFER_SIZE);
-		if (read_nbr == 0)
-			return (0);
-		new_node->str[BUFFER_SIZE] = '\0';
-		new_node->next = NULL;
-		ft_lstadd_back(head, new_node);
+		if (buf[i] == '\n')
+		{
+			new_line[k++] = '\n';
+			new_line[k] = '\0';
+			return (new_line);
+		}
+		new_line[k++] = buf[i++];
 	}
-	return (read_nbr);
+	new_line[k] = '\0';
+	return (new_line);
+}
+
+static char	*read_file(int fd, char *buf)
+{
+	char	*str2;
+	char	*str3;
+	int	bytes_read;
+
+	if (!buf)
+	{
+		if (!(buf = malloc(BUFFER_SIZE + 1)))
+			return (NULL);
+		if (!(bytes_read = read(fd, buf, BUFFER_SIZE)))
+		{
+			free(buf);
+			return (NULL);
+		}
+		buf[bytes_read] = '\0';
+	}
+	while (!ft_check_nl(buf))
+	{
+		if (!(str2 = malloc(BUFFER_SIZE + 1)))
+		{
+			free(buf);
+			return (NULL);
+		}
+		if (!(bytes_read = read(fd, str2, BUFFER_SIZE)))
+		{
+			free(buf);
+			free(str2);
+			return (NULL);
+		}
+		str2[bytes_read] = '\0';
+		if (!(str3 = ft_strjoin(buf, str2)))
+		{
+			free(buf);
+			free(str2);
+			return (NULL);
+		}
+		free(buf);
+		buf= str3;
+		free(str2);
+	}
+	return (buf);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*head;
-	char			*str;
-	int				len_read;
+	static char	*buf = NULL;
+	char	*new_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+	new_line = NULL;
+	if (fd < 0 || BUFFER_SIZE == 0 ||  read(fd, NULL, 0) < 0)
 		return (NULL);
-	format_new_head(&head);
-	len_read = create_list(&head, fd);
-	if (len_read == 0)
+	if (!ft_check_nl(buf))
 	{
-		//check --v-- function
-		ft_lstclear(&head);
-		return (NULL);
+		if ((buf = read_file(fd, buf)) == NULL)
+			return (NULL);
 	}
-	str = join_str(&head, len_read);
-	ft_lstclear(&head);
-	return (str);
-	// test with empty file
+	new_line = get_new_line(buf);
+	buf = clean_buf(buf);
+	return (new_line);
 }
 
 int	main(void)
 {
 	int	fd;
 	char	*line;
-
-	fd = open("text.txt", O_RDONLY);
+	
+	line = NULL;
+//	fd = open("text.txt", O_RDONLY);
+	fd = open("nl.txt", O_RDONLY);
+//	fd = open("empty.txt", O_RDONLY);
 	if (fd < 0)
 		return (1);
 	line = get_next_line(fd);
 	printf("%s", line);
+	free(line);
 	while (line)
 	{
 		line = get_next_line(fd);
