@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/10 18:30:52 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/14 17:58:12 by randrade         ###   ########.fr       */
+/*   Created: 2024/05/15 00:07:09 by randrade          #+#    #+#             */
+/*   Updated: 2024/05/15 00:07:16 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_check_nl(char *str)
 {
@@ -64,4 +64,27 @@ char	*ft_strjoin(char *s1, char *s2)
 	ft_strlcpy(ptr, s1, s1_len + 1);
 	ft_strlcpy(&(ptr)[ft_strlen(ptr)], s2, s1_len + s2_len + 1);
 	return (ptr);
+}
+
+char	*ft_read_buffer(int fd, char **buf)
+{
+	char	*str_read;
+	int		bytes_read;
+
+	str_read = malloc(BUFFER_SIZE + 1);
+	if (!str_read)
+		return (NULL);
+	bytes_read = read(fd, str_read, BUFFER_SIZE);
+	if (bytes_read <= 0)
+	{
+		if (bytes_read == -1)
+		{
+			free(*buf);
+			*buf = NULL;
+		}
+		free(str_read);
+		return (NULL);
+	}
+	str_read[bytes_read] = '\0';
+	return (str_read);
 }
