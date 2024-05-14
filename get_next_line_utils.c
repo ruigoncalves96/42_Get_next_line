@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:30:52 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/14 12:45:35 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:49:13 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,6 @@ size_t	ft_strlcpy(char *dst, char *src, size_t size)
 	return (src_len);
 }
 
-size_t  ft_strlcat(char *dst, char *src, size_t size)
-{
-        size_t  dst_len;
-        size_t  src_len;
-
-        dst_len = ft_strlen(dst);
-        src_len = ft_strlen(src);
-        if (dst_len >= size)
-                return (src_len + size);
-        else
-                size -= dst_len;
-        ft_strlcpy(dst + dst_len, src, size);
-        return (dst_len + src_len);
-}
-
 char    *ft_strjoin(char *s1, char *s2)
 {
         char    *ptr;
@@ -77,7 +62,7 @@ char    *ft_strjoin(char *s1, char *s2)
         if (ptr == NULL)
                 return (NULL);
         ft_strlcpy(ptr, s1, s1_len + 1);
-        ft_strlcat(ptr, s2, s1_len + s2_len + 1);
+        ft_strlcpy(&(ptr)[ft_strlen(ptr)], s2, s1_len + s2_len + 1);
         return (ptr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:28:48 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/14 14:53:08 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:39:07 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,23 @@ static char	*clean_buf(char *buf)
 {
 	char	*free_buf;
 	char	*buf_cleaned;
-	int	i;
-	int	k;
 
-	if (!*buf)
-		return (NULL);
 	free_buf = buf;
-	i = 0;
-	while (buf[i])
+	while (*buf)
 	{
-		if (buf[i] == '\n')
+		if (*buf == '\n')
+		{
+			buf++;
 			break;
-		i++;
+		}
+		buf++;	
 	}
-	if (buf[i] == '\0')
-		return (NULL);
-	buf += i + 1;
 	if (*buf == '\0' || !(buf_cleaned = malloc(ft_strlen(buf) + 1)))
-		return (NULL);
-	k = 0;
-	while (buf[k])
 	{
-		buf_cleaned[k] = buf[k];
-		k++;
+		free(free_buf);
+		return (NULL);
 	}
-	buf_cleaned[k] = '\0';
+	ft_strlcpy(buf_cleaned, buf, ft_strlen(buf) + 1);
 	free(free_buf);
 	return (buf_cleaned);
 }
@@ -83,13 +75,16 @@ static char	*read_file(int fd, char *buf)
 
 	if (!(str_read = malloc(BUFFER_SIZE + 1)))
 		return (NULL);
-	while ((bytes_read = read(fd, str_read, BUFFER_SIZE)))
+	while ((bytes_read = read(fd, str_read, BUFFER_SIZE)) > 0)
 	{
 		str_read[bytes_read] = '\0';
 		if (buf == NULL)
 		{
 			if (!(buf = malloc(bytes_read + 1)))
+			{
+				free(str_read);
 				return (NULL);
+			}
 			ft_strlcpy(buf, str_read, bytes_read + 1);
 		}
 		else
@@ -112,56 +107,10 @@ static char	*read_file(int fd, char *buf)
 	else
 	{
 		free(str_read);
+		free(buf);
 		return (NULL);
 	}
 	
-/*
-	char	*str2;
-	char	*str3;
-	int	bytes_read;
-
-	if (!buf)
-	{
-		if (!(buf = malloc(BUFFER_SIZE + 1)))
-			return (NULL);
-		if (!(bytes_read = read(fd, buf, BUFFER_SIZE)))
-		{
-			free(buf);
-			return (NULL);
-		}
-		buf[bytes_read] = '\0';
-	}
-	while (!ft_check_nl(buf))
-	{
-		if (!(str2 = malloc(BUFFER_SIZE + 1)))
-		{
-			free(buf);
-			return (NULL);
-		}
-		if (!(bytes_read = read(fd, str2, BUFFER_SIZE)))
-		{
-			if (bytes_read == 0)
-			{
-				free(str2);
-				return (buf);
-			}
-			free(buf);
-			free(str2);
-			return (NULL);
-		}
-		str2[bytes_read] = '\0';
-		if (!(str3 = ft_strjoin(buf, str2)))
-		{
-			free(buf);
-			free(str2);
-			return (NULL);
-		}
-		free(buf);
-		buf= str3;
-		free(str2);
-	}
-	return (buf);
-*/
 }
 
 char	*get_next_line(int fd)
@@ -170,7 +119,7 @@ char	*get_next_line(int fd)
 	char	*new_line;
 
 	new_line = NULL;
-	if (fd < 0 || BUFFER_SIZE == 0 ||  read(fd, NULL, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!ft_check_nl(buf))
 	{
@@ -181,7 +130,7 @@ char	*get_next_line(int fd)
 	buf = clean_buf(buf);
 	return (new_line);
 }
-
+/*
 int	main(void)
 {
 	int	fd;
@@ -206,4 +155,4 @@ int	main(void)
 	}
 	close(fd);
 	return (0);
-}
+}*/
