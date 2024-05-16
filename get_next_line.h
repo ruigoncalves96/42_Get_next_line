@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 22:59:44 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/15 00:09:41 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:03:56 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ int		ft_check_nl(char *str);
 int		ft_strlen(char *str);
 size_t	ft_strlcpy(char *dst, char *src, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_read_buffer(int fd, char **buf);
 
 #endif
