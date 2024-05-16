@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:05:52 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/15 00:06:13 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:56:24 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,20 +111,20 @@ static char	*find_new_line(int fd, char *buf)
 
 char	*get_next_line(int fd)
 {
-	static char	*buf = NULL;
+	static char	*buf[4095];
 	char		*new_line;
 
 	new_line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 4095 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!ft_check_nl(buf))
+	if (!ft_check_nl(buf[fd]))
 	{
-		buf = find_new_line(fd, buf);
-		if (buf == NULL)
+		buf[fd] = find_new_line(fd, buf[fd]);
+		if (buf[fd] == NULL)
 			return (NULL);
 	}
-	new_line = get_new_line(buf);
-	buf = clean_buf(buf);
+	new_line = get_new_line(buf[fd]);
+	buf[fd] = clean_buf(buf[fd]);
 	return (new_line);
 }
 /*
