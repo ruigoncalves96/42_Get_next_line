@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:28:48 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/16 16:37:53 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:40:30 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ static char	*clean_buf(char *buf)
 		buf++;
 	}
 	if (*buf == '\0')
-	{
-		free(free_buf);
-		return (NULL);
-	}
+		return (free(free_buf), NULL);
 	buf_cleaned = malloc(ft_strlen(buf) + 1);
 	if (!buf_cleaned)
 		return (free(free_buf), NULL);
@@ -83,11 +80,7 @@ static char	*find_new_line(int fd, char *buf)
 		if (bytes_read <= 0)
 		{
 			if (bytes_read == -1)
-			{
-				free(str_read);
-				free(buf);
-				return (NULL);
-			}
+				return (free(str_read), free(buf), NULL);
 			break ;
 		}
 		str_read[bytes_read] = '\0';
