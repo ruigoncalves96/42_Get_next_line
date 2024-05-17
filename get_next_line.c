@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:28:48 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/16 15:03:15 by randrade         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:16:09 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*clean_buf(char *buf)
 	}
 	buf_cleaned = malloc(ft_strlen(buf) + 1);
 	if (!buf_cleaned)
-		return (NULL);
+		return (free(free_buf), NULL);
 	ft_strlcpy(buf_cleaned, buf, ft_strlen(buf) + 1);
 	free(free_buf);
 	return (buf_cleaned);
@@ -52,7 +52,7 @@ static char	*get_new_line(char *buf)
 		i++;
 	new_line = malloc(i + 1);
 	if (!new_line)
-		return (NULL);
+		return (free(buf), NULL);
 	i = 0;
 	while (buf[i])
 	{
@@ -76,7 +76,7 @@ static char	*find_new_line(int fd, char *buf)
 
 	str_read = malloc(BUFFER_SIZE + 1);
 	if (!str_read)
-		return (NULL);
+		return (free(buf), NULL);
 	while (!ft_check_nl(buf))
 	{
 		bytes_read = read(fd, str_read, BUFFER_SIZE);
@@ -108,6 +108,11 @@ char	*get_next_line(int fd)
 	if (!buf)
 		return (NULL);
 	new_line = get_new_line(buf);
+	if (!new_line)
+	{
+		buf = NULL;
+		return (NULL);
+	}
 	buf = clean_buf(buf);
 	return (new_line);
 }
