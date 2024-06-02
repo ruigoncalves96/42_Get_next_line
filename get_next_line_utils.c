@@ -6,7 +6,7 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:30:52 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/31 21:10:12 by randrade         ###   ########.fr       */
+/*   Updated: 2024/06/02 10:42:59 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	s2_len = ft_strlen(s2);
 	ptr = malloc(s1_len + s2_len + 1);
 	if (!ptr)
-		return (NULL);
+		return (free(s1), NULL);
 	ft_strlcpy(ptr, s1, s1_len + 1);
 	ft_strlcpy(&ptr[s1_len], s2, s2_len + 1);
 	if (s1)

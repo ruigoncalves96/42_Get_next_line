@@ -6,11 +6,10 @@
 /*   By: randrade <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 18:28:48 by randrade          #+#    #+#             */
-/*   Updated: 2024/05/31 21:09:19 by randrade         ###   ########.fr       */
+/*   Updated: 2024/06/02 11:18:09 by randrade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "get_next_line.h"
 
 static void	clean_buf(char *buf)
@@ -106,32 +105,3 @@ char	*get_next_line(int fd)
 	clean_buf(buf);
 	return (new_line);
 }
-/*
-#include <stdio.h>
-#include <fcntl.h>
-
-int	main(void)
-{
-	int	fd;
-	char	*line;
-	
-	line = NULL;
-//	fd = open("1char.txt", O_RDONLY);
-//	fd = open("text.txt", O_RDONLY);
-	fd = open("nl.txt", O_RDONLY);
-//	fd = open("no_nl.txt", O_RDONLY);
-//	fd = open("empty.txt", O_RDONLY);
-	if (fd < 0)
-		return (1);
-	line = get_next_line(fd);
-	printf("%s", line);
-	free(line);
-	while (line)
-	{
-		line = get_next_line(fd);
-		printf("%s", line);
-    		free(line);
-	}
-	close(fd);
-	return (0);
-}*/
